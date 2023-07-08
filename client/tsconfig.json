@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] },
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
@@ -13,6 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "types": ["vite/client"], //this will help ts use the environment variables inside .env.local file without errors
 
     /* Linting */
     "strict": true,
@@ -20,6 +22,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/App.tsx","vite"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
