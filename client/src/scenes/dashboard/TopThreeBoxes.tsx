@@ -1,9 +1,11 @@
 import DashboardBox from "@/components/DashboardBox";
-import React from "react";
+import { useGetKpisQuery } from "@/state/api";
 
 type Props = {};
 
 const TopThreeBoxes = (props: Props) => {
+  // use api hook from api.ts
+  const {data} = useGetKpisQuery();
   return (
     <>
       <DashboardBox gridArea="a"></DashboardBox>

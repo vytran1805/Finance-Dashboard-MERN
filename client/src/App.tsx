@@ -4,6 +4,7 @@ import { themeSettings } from "./theme";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "@/scenes/navbar";
 import Dashboard from "@/scenes/dashboard";
+
 function App() {
   // create theme that comes from MUI
   const theme = useMemo(() => createTheme(themeSettings), []);
