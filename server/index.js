@@ -18,18 +18,3 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 /*MONGOOSE SETUP*/
-const PORT = process.env.PORT || 9000; //access the PORT env variable in .env file
-// connect to the MongoUrl env variable, and pass in an object
-mongoose
-  // connect to the url
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  // then call back function
-  .then(async () => {
-    // pass in app.listen and listen to PORT
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-  })
-  //catch error if any
-  .catch((error) => console.log(`${error} did not connect`));

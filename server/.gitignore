@@ -1,3 +1,0 @@
-# We don't want to expose those files to the public
-.env    
-node_modules
