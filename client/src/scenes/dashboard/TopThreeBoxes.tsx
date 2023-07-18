@@ -4,8 +4,9 @@ import { useGetKpisQuery } from "@/state/api";
 type Props = {};
 
 const TopThreeBoxes = (props: Props) => {
-  // use api hook from api.ts
-  const {data} = useGetKpisQuery();
+  // use api hook from api.ts to get data from the database
+  const { data } = useGetKpisQuery(); //API only gets called ONCE HERE!
+  console.log("data: ", data);
   return (
     <>
       <DashboardBox gridArea="a"></DashboardBox>
