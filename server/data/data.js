@@ -6,7 +6,7 @@ export const kpis = [
     totalExpenses: "$71000.00",
     monthlyData: [
       {
-        month: "january",
+        month: "january",   //should be x value
         revenue: "$15989.64",
         expenses: "$14231.73",
         operationalExpenses: "$10340.03",
@@ -48,7 +48,7 @@ export const kpis = [
         nonOperationalExpenses: "$9924.65",
       },
       {
-        month: "july",
+        month: "july",      
         revenue: "$19349.98",
         expenses: "$15431.81",
         operationalExpenses: "$9258.09",

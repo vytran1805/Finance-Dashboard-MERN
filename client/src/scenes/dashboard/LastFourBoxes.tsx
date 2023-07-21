@@ -1,8 +1,10 @@
 import DashboardBox from "@/components/DashboardBox";
+// @ts-ignore
 import React from "react";
 
 type Props = {};
 
+// @ts-ignore
 const LastFourBoxes = (props: Props) => {
   return (
     <>

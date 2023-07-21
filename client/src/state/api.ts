@@ -12,7 +12,7 @@ export const api = createApi({
   tagTypes: ["Kpis"],
   //    a simple API endpoint named getKpis that makes a GET request to "kpi/kpis/" URL and provides the "Kpis" tag for caching and invalidation purposes
   endpoints: (build) => ({
-    getKpis: build.query<void, void>({
+    getKpis: build.query<Array<GetKpisResponse>, void>({
       //'query()' makes a GET request to the "kpi/kpis/" URL
       query: () => "kpi/kpis/",
       // By setting the providesTags property to ["Kpis"], this endpoint provides the "Kpis" tag,  it can trigger cache invalidation or cache updates when data related to this endpoint changes
