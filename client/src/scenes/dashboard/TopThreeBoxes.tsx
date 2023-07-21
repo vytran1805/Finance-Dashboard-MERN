@@ -1,5 +1,6 @@
 import DashboardBox from "@/components/DashboardBox";
 import { useGetKpisQuery } from "@/state/api";
+import { useTheme } from "@mui/material";
 import { useMemo } from "react";
 import {
   Area,
@@ -14,6 +15,8 @@ import {
 type Props = {};
 
 const TopThreeBoxes = (props: Props) => {
+  // use palette from useThem() @mui/material
+  const { palette } = useTheme();
   // use api hook from api.ts to get data from the database
   const { data } = useGetKpisQuery(); //API only gets called ONCE HERE!
   console.log("data: ", data);
@@ -24,19 +27,20 @@ const TopThreeBoxes = (props: Props) => {
    * @FirstParam call back function
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
    */
-  const revenueExpenses = useMemo(()=>{
-    return(
+  const revenueExpenses = useMemo(() => {
+    return (
       // make sure the data exists, then grab the obj (we have only one in this data), get 'monthlyData'
-      data && data[0].monthlyData.map(({month, revenue, expenses})=>{
+      data &&
+      data[0].monthlyData.map(({ month, revenue, expenses }) => {
         return {
           // Grab the first 3 letter of the month. E.g., Jan, Feb, Mar,..
-          name: month.substring(0,3),
+          name: month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3), //capital the first letter of the name
           revenue: revenue,
           expenses: expenses,
-        }
+        };
       })
-    )
-  },[data])
+    );
+  }, [data]);
   return (
     <>
       <DashboardBox gridArea="a">
@@ -44,7 +48,7 @@ const TopThreeBoxes = (props: Props) => {
           <AreaChart
             width={500}
             height={400}
-            data={data}
+            data={revenueExpenses}
             margin={{
               top: 10,
               right: 30,
@@ -58,9 +62,22 @@ const TopThreeBoxes = (props: Props) => {
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="uv"
-              stroke="#8884d8"
-              fill="#8884d8"
+              dataKey="expenses"
+              dot={true}
+              stroke={palette.primary.main} //line
+              fillOpacity={0.5}
+              fill="url(#colorRevenue)"
+              // fill={palette.primary.lightest}
+            />
+            <Area
+              type="monotone"
+              dataKey="revenue"
+              dot={true}
+              stroke={palette.primary.light} //line
+              fillOpacity={0.5}
+              fill="url(#colorRevenue)"
+
+              // fill={palette.primary.lightest}
             />
           </AreaChart>
         </ResponsiveContainer>
