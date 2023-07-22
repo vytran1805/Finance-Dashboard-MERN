@@ -197,6 +197,21 @@ const TopThreeBoxes = (props: Props) => {
           subtitle="Each bar illustrates the monthly revenue data"
           sideText="+4%"
         />
+        {/* Set up the Gradient color for the chart: https://recharts.org/en-US/api/AreaChart */}
+        <defs>
+          <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+            <stop
+              offset="5%"
+              stopColor={palette.primary[600]}
+              stopOpacity={0.8}
+            />
+            <stop
+              offset="95%"
+              stopColor={palette.primary[600]}
+              stopOpacity={0}
+            />
+          </linearGradient>
+        </defs>
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             style={{ fontSize: "10px" }}
@@ -211,11 +226,10 @@ const TopThreeBoxes = (props: Props) => {
             }}
           >
             <CartesianGrid vertical={false} stroke={palette.grey[800]} />
-            <XAxis dataKey="Name" />
-            <YAxis />
+            <XAxis dataKey="Name" axisLine={false} tickLine={false} />
+            <YAxis axisLine={false} tickLine={false} />
             <Tooltip />
-            <Legend height={20} />
-            <Bar dataKey="Revenue" fill="#8884d8" />
+            <Bar dataKey="Revenue" fill="url(#colorRevenue)" />
           </BarChart>
         </ResponsiveContainer>
       </DashboardBox>
