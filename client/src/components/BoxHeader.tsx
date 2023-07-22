@@ -10,7 +10,7 @@ type Props = {
 };
 /**
  * Reusable header for every box
- * @param param0 
+ * @param param0
  * @returns BoxHeader
  */
 const BoxHeader = ({ icon, title, subtitle, sideText }: Props) => {
@@ -26,7 +26,9 @@ const BoxHeader = ({ icon, title, subtitle, sideText }: Props) => {
           <Typography variant="h6">{subtitle}</Typography>
         </Box>
       </FlexBetween>
-      <Typography variant='h5' fontWeight='700' color={palette.secondary[500]}>{sideText}</Typography>
+      <Typography variant="h5" fontWeight="700" color={palette.secondary[500]}>
+        {sideText}
+      </Typography>
     </FlexBetween>
   );
 };
