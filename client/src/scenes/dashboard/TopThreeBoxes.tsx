@@ -57,7 +57,7 @@ const TopThreeBoxes = (props: Props) => {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="name" tickLine={false}/>
             <YAxis />
             <Tooltip />
             <Area
