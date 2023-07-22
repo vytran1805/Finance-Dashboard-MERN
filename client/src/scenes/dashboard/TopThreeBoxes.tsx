@@ -56,9 +56,18 @@ const TopThreeBoxes = (props: Props) => {
               bottom: 0,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" tickLine={false}/>
-            <YAxis />
+            {/* <CartesianGrid strokeDasharray="3 3" /> */} 
+            <XAxis
+              dataKey="name"
+              tickLine={false}
+              style={{ fontSize: "10px" }}
+            />
+            <YAxis
+              tickLine={false}
+              axisLine={{ strokeWidth: "0" }}
+              style={{ fontSize: "10px" }}
+              domain={[8000,23000]}   //set a range of YAxis
+            />
             <Tooltip />
             <Area
               type="monotone"
