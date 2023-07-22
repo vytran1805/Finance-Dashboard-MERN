@@ -7,6 +7,9 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -23,7 +26,7 @@ const TopThreeBoxes = (props: Props) => {
   console.log("data: ", data);
 
   /**
-   * useMemo() hook makes sure the function only runs as needed
+   * Prepare data for the first chart/graph using useMemo()
    * the value returned by the memoized function will be stored in 'revenueExpenses' variable.
    * @FirstParam call back function
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
@@ -38,6 +41,20 @@ const TopThreeBoxes = (props: Props) => {
           name: month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3), //capital the first letter of the name
           revenue: revenue,
           expenses: expenses,
+        };
+      })
+    );
+  }, [data]);
+
+  const profitRevenue = useMemo(() => {
+    return (
+      data &&
+      data[0].monthlyData.map(({ month, revenue, expenses }) => {
+        return {
+          // Grab the first 3 letter of the month. E.g., Jan, Feb, Mar,..
+          name: month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3), //capital the first letter of the name
+          profit: revenue - expenses,
+          revenue: revenue,
         };
       })
     );
@@ -120,7 +137,41 @@ const TopThreeBoxes = (props: Props) => {
           </AreaChart>
         </ResponsiveContainer>
       </DashboardBox>
-      <DashboardBox gridArea="b"></DashboardBox>
+      <DashboardBox gridArea="b">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis yAxisId="left" />
+            <YAxis yAxisId="right" orientation="right" />
+            <Tooltip />
+            <Legend />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="pv"
+              stroke="#8884d8"
+              activeDot={{ r: 8 }}
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="uv"
+              stroke="#82ca9d"
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </DashboardBox>
       <DashboardBox gridArea="c"></DashboardBox>
     </>
   );
