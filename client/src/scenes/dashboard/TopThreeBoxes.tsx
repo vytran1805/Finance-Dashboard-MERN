@@ -26,7 +26,7 @@ const TopThreeBoxes = (props: Props) => {
   console.log("data: ", data);
 
   /**
-   * Prepare data for the first chart/graph using useMemo()
+   * Prepare data for the charts/graphs using useMemo()
    * the value returned by the memoized function will be stored in 'revenueExpenses' variable.
    * @FirstParam call back function
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
@@ -38,27 +38,28 @@ const TopThreeBoxes = (props: Props) => {
       data[0].monthlyData.map(({ month, revenue, expenses }) => {
         return {
           // Grab the first 3 letter of the month. E.g., Jan, Feb, Mar,..
-          name: month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3), //capital the first letter of the name
-          revenue: revenue,
-          expenses: expenses,
+          Name: month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3), //capital the first letter of the name
+          Revenue: revenue,
+          Expenses: expenses,
+          Profit: (revenue - expenses).toFixed(2), //get 2 decimal numbers
         };
       })
     );
   }, [data]);
 
-  const profitRevenue = useMemo(() => {
-    return (
-      data &&
-      data[0].monthlyData.map(({ month, revenue, expenses }) => {
-        return {
-          // Grab the first 3 letter of the month. E.g., Jan, Feb, Mar,..
-          name: month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3), //capital the first letter of the name
-          profit: revenue - expenses,
-          revenue: revenue,
-        };
-      })
-    );
-  }, [data]);
+  // const profitRevenue = useMemo(() => {
+  //   return (
+  //     data &&
+  //     data[0].monthlyData.map(({ month, revenue, expenses }) => {
+  //       return {
+  //         // Grab the first 3 letter of the month. E.g., Jan, Feb, Mar,..
+  //         Name: month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3), //capital the first letter of the name
+  //         Profit: revenue - expenses,
+  //         Revenue: revenue,
+  //       };
+  //     })
+  //   );
+  // }, [data]);
   return (
     <>
       <DashboardBox gridArea="a">
@@ -107,7 +108,7 @@ const TopThreeBoxes = (props: Props) => {
               </linearGradient>
             </defs>
             <XAxis
-              dataKey="name"
+              dataKey="Name"
               tickLine={false}
               style={{ fontSize: "10px" }}
             />
@@ -120,54 +121,67 @@ const TopThreeBoxes = (props: Props) => {
             <Tooltip />
             <Area
               type="monotone"
-              dataKey="expenses"
+              dataKey="Expenses"
               dot={true}
-              stroke={palette.primary.main} //line
+              stroke={palette.primary[900]} //line
               fillOpacity={1}
               fill="url(#colorRevenue)" //this will navigate to linearGradient above
             />
             <Area
               type="monotone"
-              dataKey="revenue"
+              dataKey="Revenue"
               dot={true}
-              stroke={palette.primary.light} //line
+              stroke={palette.primary[900]} //line
               fillOpacity={1}
               fill="url(#colorRevenue)"
             />
           </AreaChart>
         </ResponsiveContainer>
       </DashboardBox>
+
+      {/* Profit and Revenue line chart starts here */}
       <DashboardBox gridArea="b">
+        <BoxHeader
+          title="Profit and Revenue"
+          subtitle="Top line represents revenue, bottom line represents profit"
+          sideText="+4%"
+        />
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
+            style={{ fontSize: "10px" }}
             width={500}
-            height={300}
-            data={data}
+            height={400}
+            data={revenueExpenses}
             margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
+              top: 20,
+              right: 0,
+              left: -10,
+              bottom: 60,
             }}
           >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis yAxisId="left" />
-            <YAxis yAxisId="right" orientation="right" />
+            <CartesianGrid vertical={false} stroke={palette.grey[800]} />
+            <XAxis dataKey="Name" tickLine={false} />
+            <YAxis yAxisId="left" tickLine={false} axisLine={false} />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              tickLine={false}
+              axisLine={false}
+            />
             <Tooltip />
-            <Legend />
+            <Legend height={20} />
             <Line
               yAxisId="left"
               type="monotone"
-              dataKey="pv"
-              stroke="#8884d8"
+              dataKey="Profit"
+              stroke={palette.tertiary[500]}
               activeDot={{ r: 8 }}
             />
             <Line
               yAxisId="right"
               type="monotone"
-              dataKey="uv"
-              stroke="#82ca9d"
+              dataKey="Revenue"
+              stroke={palette.primary[800]}
             />
           </LineChart>
         </ResponsiveContainer>
