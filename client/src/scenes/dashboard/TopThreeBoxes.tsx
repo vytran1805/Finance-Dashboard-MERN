@@ -6,6 +6,8 @@ import { useMemo } from "react";
 import {
   Area,
   AreaChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   Legend,
   Line,
@@ -62,6 +64,7 @@ const TopThreeBoxes = (props: Props) => {
   // }, [data]);
   return (
     <>
+      {/* Revenue and Expenses area chart starts here */}
       <DashboardBox gridArea="a">
         <BoxHeader
           title="Revenue and Expenses"
@@ -186,7 +189,36 @@ const TopThreeBoxes = (props: Props) => {
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
-      <DashboardBox gridArea="c"></DashboardBox>
+
+      {/* Monthly Revenue bar chart starts here */}
+      <DashboardBox gridArea="c">
+        <BoxHeader
+          title="Monthly Revenue"
+          subtitle="Each bar illustrates the monthly revenue data"
+          sideText="+4%"
+        />
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart
+            style={{ fontSize: "10px" }}
+            width={500}
+            height={400}
+            data={revenueExpenses}
+            margin={{
+              top: 20,
+              right: 20,
+              left: -10,
+              bottom: 60,
+            }}
+          >
+            <CartesianGrid vertical={false} stroke={palette.grey[800]} />
+            <XAxis dataKey="Name" />
+            <YAxis />
+            <Tooltip />
+            <Legend height={20} />
+            <Bar dataKey="Revenue" fill="#8884d8" />
+          </BarChart>
+        </ResponsiveContainer>
+      </DashboardBox>
     </>
   );
 };
