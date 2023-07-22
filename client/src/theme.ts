@@ -51,7 +51,6 @@ export const themeSettings = {
       ...tokens.primary,
       main: tokens.primary[600],
       light: tokens.primary[500],
-      lightest: tokens.primary[400],
     },
     secondary: {
       ...tokens.secondary,

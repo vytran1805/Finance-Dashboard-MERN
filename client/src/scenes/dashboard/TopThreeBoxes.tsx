@@ -56,7 +56,33 @@ const TopThreeBoxes = (props: Props) => {
               bottom: 0,
             }}
           >
-            {/* <CartesianGrid strokeDasharray="3 3" /> */} 
+            {/* Set up the Gradient color for the chart: https://recharts.org/en-US/api/AreaChart */}
+            <defs>
+              <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor={palette.primary[600]}
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="95%"
+                  stopColor={palette.primary[600]}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+              <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor={palette.primary[700]}
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="95%"
+                  stopColor={palette.primary[700]}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </defs>
             <XAxis
               dataKey="name"
               tickLine={false}
@@ -66,7 +92,7 @@ const TopThreeBoxes = (props: Props) => {
               tickLine={false}
               axisLine={{ strokeWidth: "0" }}
               style={{ fontSize: "10px" }}
-              domain={[8000,23000]}   //set a range of YAxis
+              domain={[8000, 23000]} //set a range of YAxis
             />
             <Tooltip />
             <Area
@@ -74,19 +100,16 @@ const TopThreeBoxes = (props: Props) => {
               dataKey="expenses"
               dot={true}
               stroke={palette.primary.main} //line
-              fillOpacity={0.5}
-              fill="url(#colorRevenue)"
-              // fill={palette.primary.lightest}
+              fillOpacity={1}
+              fill="url(#colorRevenue)" //this will navigate to linearGradient above
             />
             <Area
               type="monotone"
               dataKey="revenue"
               dot={true}
               stroke={palette.primary.light} //line
-              fillOpacity={0.5}
+              fillOpacity={1}
               fill="url(#colorRevenue)"
-
-              // fill={palette.primary.lightest}
             />
           </AreaChart>
         </ResponsiveContainer>
