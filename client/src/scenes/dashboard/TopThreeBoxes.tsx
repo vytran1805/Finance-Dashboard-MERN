@@ -50,10 +50,10 @@ const TopThreeBoxes = (props: Props) => {
             height={400}
             data={revenueExpenses}
             margin={{
-              top: 10,
-              right: 30,
-              left: 0,
-              bottom: 0,
+              top: 15,
+              right: 25,
+              left: -10,
+              bottom: 60,
             }}
           >
             {/* Set up the Gradient color for the chart: https://recharts.org/en-US/api/AreaChart */}
