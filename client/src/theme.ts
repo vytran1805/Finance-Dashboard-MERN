@@ -12,15 +12,15 @@ export const tokens = {
   },
   primary: {
     // green
-    100: "#c7dec7",
-    200: "#bbd6ba",
-    300: "#afcfae",
-    400: "#a3c8a2",
-    500: "#97c095",
-    600: "#8bb989",
-    700: "#7eb27d",
-    800: "#72ab70",
-    900: "#66a364",
+    100: "#caf0f8",
+    200: "#ade8f4",
+    300: "#90e0ef",
+    400: "#48cae4",
+    500: "#00b4d8",
+    600: "#0096c7",
+    700: "#0077b6",
+    800: "#023e8a",
+    900: "#03045e",
   },
   secondary: {
     // yellow
@@ -49,8 +49,9 @@ export const themeSettings = {
   palette: {
     primary: {
       ...tokens.primary,
-      main: tokens.primary[600],
-      light: tokens.primary[500],
+      main: tokens.primary[500],
+      light: tokens.primary[400],
+      lightest: tokens.primary[200],
     },
     secondary: {
       ...tokens.secondary,

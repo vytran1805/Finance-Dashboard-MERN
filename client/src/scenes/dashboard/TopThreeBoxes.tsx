@@ -83,30 +83,42 @@ const TopThreeBoxes = (props: Props) => {
               bottom: 60,
             }}
           >
-            {/* Set up the Gradient color for the chart: https://recharts.org/en-US/api/AreaChart */}
+            {/* Set up the Gradient color for the charts. This will be used for both AreaChart and BarChar: https://recharts.org/en-US/api/AreaChart */}
             <defs>
               <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor={palette.primary[600]}
-                  stopOpacity={0.8}
+                  stopColor={palette.primary[400]}
+                  stopOpacity={0.9}
                 />
                 <stop
                   offset="95%"
-                  stopColor={palette.primary[600]}
+                  stopColor={palette.primary[400]}
                   stopOpacity={0}
                 />
               </linearGradient>
               <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
-                  stopColor={palette.primary[700]}
-                  stopOpacity={0.8}
+                  stopColor={palette.primary[400]}
+                  stopOpacity={0.9}
                 />
                 <stop
                   offset="95%"
-                  stopColor={palette.primary[700]}
+                  stopColor={palette.primary[300]}
                   stopOpacity={0}
+                />
+              </linearGradient>
+              <linearGradient id="colorBarRevenue" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="10%"
+                  stopColor={palette.primary[400]}
+                  stopOpacity={0.9}
+                />
+                <stop
+                  offset="95%"
+                  stopColor={palette.primary[400]}
+                  stopOpacity={0.05}
                 />
               </linearGradient>
             </defs>
@@ -126,7 +138,7 @@ const TopThreeBoxes = (props: Props) => {
               type="monotone"
               dataKey="Expenses"
               dot={true}
-              stroke={palette.primary[900]} //line
+              stroke={palette.primary.light} //line
               fillOpacity={1}
               fill="url(#colorRevenue)" //this will navigate to linearGradient above
             />
@@ -134,7 +146,7 @@ const TopThreeBoxes = (props: Props) => {
               type="monotone"
               dataKey="Revenue"
               dot={true}
-              stroke={palette.primary[900]} //line
+              stroke={palette.primary.light} //line
               fillOpacity={1}
               fill="url(#colorRevenue)"
             />
@@ -184,7 +196,7 @@ const TopThreeBoxes = (props: Props) => {
               yAxisId="right"
               type="monotone"
               dataKey="Revenue"
-              stroke={palette.primary[800]}
+              stroke={palette.primary.light}
             />
           </LineChart>
         </ResponsiveContainer>
@@ -199,15 +211,15 @@ const TopThreeBoxes = (props: Props) => {
         />
         {/* Set up the Gradient color for the chart: https://recharts.org/en-US/api/AreaChart */}
         <defs>
-          <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="barRevenue" x1="0" y1="0" x2="0" y2="1">
             <stop
               offset="5%"
-              stopColor={palette.primary[600]}
+              stopColor={palette.primary[400]}
               stopOpacity={0.8}
             />
             <stop
               offset="95%"
-              stopColor={palette.primary[600]}
+              stopColor={palette.primary[400]}
               stopOpacity={0}
             />
           </linearGradient>
@@ -229,7 +241,7 @@ const TopThreeBoxes = (props: Props) => {
             <XAxis dataKey="Name" axisLine={false} tickLine={false} />
             <YAxis axisLine={false} tickLine={false} />
             <Tooltip />
-            <Bar dataKey="Revenue" fill="url(#colorRevenue)" />
+            <Bar dataKey="Revenue" fill="url(#colorBarRevenue)" />
           </BarChart>
         </ResponsiveContainer>
       </DashboardBox>
