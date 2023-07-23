@@ -22,7 +22,7 @@ export const api = createApi({
     }),
     // API call for Product data
     getProducts: build.query<Array<GetProductsResponse>, void>({
-      //'query()' makes a GET request to the "kpi/kpis/" URL
+      //'query()' makes a GET request to the "product/products/" URL
       query: () => "product/products/",
       // By setting the providesTags property to ["Products"], this endpoint provides the "Products" tag,  it can trigger cache invalidation or cache updates when data related to this endpoint changes
       providesTags: ["Products"],
