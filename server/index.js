@@ -44,7 +44,7 @@ mongoose
 
     // await mongoose.connection.db.dropDatabase(); //drop the database if existed
     // KPI.insertMany(kpis); //insert kpis data into the KPI model
-    Product.insertMany(products); //insert products data into the product model
+    // Product.insertMany(products); //insert products data into the product model
   })
   // catch any errors occurs
   .catch((error) => console.log(`${error} did not connect`));
