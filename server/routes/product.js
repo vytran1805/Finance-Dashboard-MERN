@@ -8,6 +8,8 @@ router.get("/products", async (req, res) => {
   try {
     // grab data from the database and assign it to kpis
     const products = await Product.find();
+    /* Any other logic goes here */
+    
     // send our kpis object that we've grabbed from database  to the front-end via a 200 status
     res.status(200).json(products);
   } catch (error) {

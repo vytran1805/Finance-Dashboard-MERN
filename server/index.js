@@ -6,10 +6,10 @@ import dotenv from "dotenv"; //handle environment variables
 import helmet from "helmet"; //for API endpoint security
 import morgan from "morgan"; //handle console log ⇒ anytime we hit an endpoint, it’s going to console log information
 import kpiRoutes from "./routes/kpi.js";
-import productRoutes from "./routes/products.js";
-import Product from './models/Product.js'
+import productRoutes from "./routes/product.js";
+import Product from "./models/Product.js";
 import KPI from "./models/KPI.js"; //import the KPI model
-import { kpis } from "./data/data.js"; //import the data
+import { kpis, products } from "./data/data.js"; //import the data
 /* CONFIGURATION */
 dotenv.config();
 const app = express();
@@ -44,6 +44,7 @@ mongoose
 
     // await mongoose.connection.db.dropDatabase(); //drop the database if existed
     // KPI.insertMany(kpis); //insert kpis data into the KPI model
+    Product.insertMany(products); //insert products data into the product model
   })
   // catch any errors occurs
   .catch((error) => console.log(`${error} did not connect`));
