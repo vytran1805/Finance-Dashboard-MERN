@@ -10,19 +10,27 @@ export const api = createApi({
   //   `reducerPath` property is set to the string value "main". This is the unique key that identifies the service in the Redux store.
   reducerPath: "main",
   //   Tag types are optional and used for caching and invalidation. By providing an empty array, no tag types are defined
-  tagTypes: ["Kpis"],
+  tagTypes: ["Kpis","Products"],
   //    a simple API endpoint named getKpis that makes a GET request to "kpi/kpis/" URL and provides the "Kpis" tag for caching and invalidation purposes
   endpoints: (build) => ({
+    // API call for KPI data
     getKpis: build.query<Array<GetKpisResponse>, void>({
       //'query()' makes a GET request to the "kpi/kpis/" URL
       query: () => "kpi/kpis/",
       // By setting the providesTags property to ["Kpis"], this endpoint provides the "Kpis" tag,  it can trigger cache invalidation or cache updates when data related to this endpoint changes
       providesTags: ["Kpis"],
     }),
+    // API call for Product data
+    getProducts: build.query<Array<GetProductsResponse>, void>({
+      //'query()' makes a GET request to the "kpi/kpis/" URL
+      query: () => "product/products/",
+      // By setting the providesTags property to ["Products"], this endpoint provides the "Products" tag,  it can trigger cache invalidation or cache updates when data related to this endpoint changes
+      providesTags: ["Products"],
+    }),
   }),
 });
 
-export const { useGetKpisQuery } = api;
+export const { useGetKpisQuery, useGetProductsQuery } = api;
 
 /* 
     EXPLANATION:
