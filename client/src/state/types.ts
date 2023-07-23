@@ -34,7 +34,7 @@ export interface Day {
   _id: string;
 }
 /**
- * this interface represents the obj that we want the response to look like
+ * this interface represents the KPI obj that we want the response to look like
  * Note: used in api.ts
  */
 export interface GetKpisResponse {
@@ -47,4 +47,21 @@ export interface GetKpisResponse {
   expensesByCategory: ExpensesByCategory;
   monthlyData: Array<Month>;
   dailyData: Array<Day>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * this interface represents the Product obj that we want the response to look like
+ * Note: used in api.ts
+ */
+export interface GetProductsResponse {
+  id: string;
+  __v: number;
+  _id: string;
+  price: number;
+  expense: number;
+  transactions: Array<string>;
+  createAt: string;
+  updatedAt: string;
 }

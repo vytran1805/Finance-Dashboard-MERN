@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GetKpisResponse } from "./types";
+import { GetKpisResponse, GetProductsResponse } from "./types";
 
 /**boilerplate code
  * createApi() allows to make endpoints that we can use to call and grab data from our backend
