@@ -6,6 +6,8 @@ import dotenv from "dotenv"; //handle environment variables
 import helmet from "helmet"; //for API endpoint security
 import morgan from "morgan"; //handle console log ⇒ anytime we hit an endpoint, it’s going to console log information
 import kpiRoutes from "./routes/kpi.js";
+import productRoutes from "./routes/products.js";
+import Product from './models/Product.js'
 import KPI from "./models/KPI.js"; //import the KPI model
 import { kpis } from "./data/data.js"; //import the data
 /* CONFIGURATION */
@@ -21,7 +23,7 @@ app.use(cors());
 
 /* ROUTES */
 app.use("/kpi", kpiRoutes);
-
+app.use("/product", productRoutes);
 /*MONGOOSE SETUP*/
 const PORT = process.env.PORT || 9000;
 mongoose
