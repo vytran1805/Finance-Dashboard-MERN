@@ -38,7 +38,11 @@ const MiddleThreeBoxes = (props: Props) => {
     );
   }, [operationalVsNonOpData]);
 
-  // Data for the first pie chart
+  /**
+   * Data for the first pie chart (second Dashboard box)
+   * This can be combined with "operationalVsNonOpExpenses" variable
+   * but I separate them for clarity and ease of understanding
+   */
   const expensesRatio = useMemo(() => {
     return (
       // Check if operationalVsNonOpData is truthy (not null or undefined)
@@ -46,13 +50,14 @@ const MiddleThreeBoxes = (props: Props) => {
       operationalVsNonOpData && {
         // Calculate the total operational expenses for all months
         // in the monthlyData array using the reduce method
-        totalOperationalExpenses: operationalVsNonOpData[0].monthlyData.reduce(
-          (acc, array) => acc + array.operationalExpenses,
-          0
-        ),
+        "Total Operational Expenses":
+          operationalVsNonOpData[0].monthlyData.reduce(
+            (acc, array) => acc + array.operationalExpenses,
+            0
+          ),
         // Calculate the total non-operational expenses for all months
         // in the monthlyData array using the reduce method
-        totalNonOperationalExpenses:
+        "Total Non Operational Expenses":
           operationalVsNonOpData[0].monthlyData.reduce(
             (acc, array) => acc + array.nonOperationalExpenses,
             0
@@ -109,7 +114,7 @@ const MiddleThreeBoxes = (props: Props) => {
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
-      
+
       {/* Pie charts start here */}
       <DashboardBox gridArea="e"></DashboardBox>
       <DashboardBox gridArea="f"></DashboardBox>
