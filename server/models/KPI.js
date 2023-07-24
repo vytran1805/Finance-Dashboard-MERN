@@ -45,7 +45,7 @@ const monthSchema = new Schema(
       currency: "CAD",
       get: (v) => v / 100, //divide the value to get the real currency value
     },
-    operationalExpense: {
+    operationalExpenses: {
       type: mongoose.Types.Currency, //this is from the loadType we imported above
       currency: "CAD",
       get: (v) => v / 100, //divide the value to get the real currency value
