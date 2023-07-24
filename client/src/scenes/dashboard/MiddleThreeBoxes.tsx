@@ -17,8 +17,9 @@ import {
 type Props = {};
 
 const MiddleThreeBoxes = (props: Props) => {
-  // This data is used for the first chart
+  // Get Kpi data: used for the first chart
   const { data: operationalVsNonOpData } = useGetKpisQuery();
+
   const { palette } = useTheme();
 
   const operationalVsNonOpExpenses = useMemo(() => {
@@ -36,8 +37,33 @@ const MiddleThreeBoxes = (props: Props) => {
       )
     );
   }, [operationalVsNonOpData]);
+
+  // Data for the first pie chart
+  const expensesRatio = useMemo(() => {
+    return (
+      // Check if operationalVsNonOpData is truthy (not null or undefined)
+      // and if it is, calculate the expenses ratio
+      operationalVsNonOpData && {
+        // Calculate the total operational expenses for all months
+        // in the monthlyData array using the reduce method
+        totalOperationalExpenses: operationalVsNonOpData[0].monthlyData.reduce(
+          (acc, array) => acc + array.operationalExpenses,
+          0
+        ),
+        // Calculate the total non-operational expenses for all months
+        // in the monthlyData array using the reduce method
+        totalNonOperationalExpenses:
+          operationalVsNonOpData[0].monthlyData.reduce(
+            (acc, array) => acc + array.nonOperationalExpenses,
+            0
+          ),
+      }
+    );
+  }, [operationalVsNonOpData]);
+
   return (
     <>
+      {/* Operational vs Non operational line chart */}
       <DashboardBox gridArea="d">
         <BoxHeader
           title="Operational and Non-Operational Expenses"
@@ -83,6 +109,8 @@ const MiddleThreeBoxes = (props: Props) => {
           </LineChart>
         </ResponsiveContainer>
       </DashboardBox>
+      
+      {/* Pie charts start here */}
       <DashboardBox gridArea="e"></DashboardBox>
       <DashboardBox gridArea="f"></DashboardBox>
     </>
