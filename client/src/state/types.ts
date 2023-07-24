@@ -19,8 +19,8 @@ export interface Month {
   month: string;
   revenue: number;
   expenses: number;
-  operationalExpenses: number | null;
-  nonOperationalExpenses: number | null;
+  operationalExpenses: number;
+  nonOperationalExpenses: number;
   _id: string;
 }
 /**
