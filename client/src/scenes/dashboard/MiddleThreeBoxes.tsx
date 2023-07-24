@@ -5,9 +5,12 @@ import { useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import {
   CartesianGrid,
+  Cell,
   Legend,
   Line,
   LineChart,
+  Pie,
+  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -21,6 +24,7 @@ const MiddleThreeBoxes = (props: Props) => {
   const { data: operationalVsNonOpData } = useGetKpisQuery();
 
   const { palette } = useTheme();
+  const pieColorPalette = [palette.primary[600], palette.primary[200]];
 
   const operationalVsNonOpExpenses = useMemo(() => {
     return (
@@ -40,29 +44,34 @@ const MiddleThreeBoxes = (props: Props) => {
 
   /**
    * Data for the first pie chart (second Dashboard box)
+   * Note: This will return an array of object
    * This can be combined with "operationalVsNonOpExpenses" variable
    * but I separate them for clarity and ease of understanding
    */
-  const expensesRatio = useMemo(() => {
+  const expensesRatio: any[] | undefined = useMemo(() => {
     return (
       // Check if operationalVsNonOpData is truthy (not null or undefined)
       // and if it is, calculate the expenses ratio
-      operationalVsNonOpData && {
-        // Calculate the total operational expenses for all months
-        // in the monthlyData array using the reduce method
-        "Total Operational Expenses":
-          operationalVsNonOpData[0].monthlyData.reduce(
+      operationalVsNonOpData && [
+        {
+          // Calculate the total operational expenses for all months
+          // in the monthlyData array using the reduce method
+          name: "Total Operational Expenses",
+          value: operationalVsNonOpData?.[0]?.monthlyData.reduce(
             (acc, array) => acc + array.operationalExpenses,
             0
           ),
-        // Calculate the total non-operational expenses for all months
-        // in the monthlyData array using the reduce method
-        "Total Non Operational Expenses":
-          operationalVsNonOpData[0].monthlyData.reduce(
+        },
+        {
+          // Calculate the total non-operational expenses for all months
+          // in the monthlyData array using the reduce method
+          name: "Total Non Operational Expenses",
+          value: operationalVsNonOpData?.[0]?.monthlyData.reduce(
             (acc, array) => acc + array.nonOperationalExpenses,
             0
           ),
-      }
+        },
+      ]
     );
   }, [operationalVsNonOpData]);
 
@@ -116,7 +125,31 @@ const MiddleThreeBoxes = (props: Props) => {
       </DashboardBox>
 
       {/* Pie charts start here */}
-      <DashboardBox gridArea="e"></DashboardBox>
+      <DashboardBox gridArea="e">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart
+            width={110}
+            height={100}
+            margin={{ top: 0, right: -10, left: 10, bottom: 55 }}
+          >
+            <Pie
+            stroke="none"
+              data={expensesRatio}
+              cx="50%"
+              cy="50%"
+              labelLine={false}
+              // label={renderCustomizedLabel}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+            >
+              {expensesRatio?.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={pieColorPalette[index]} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </DashboardBox>
       <DashboardBox gridArea="f"></DashboardBox>
     </>
   );
