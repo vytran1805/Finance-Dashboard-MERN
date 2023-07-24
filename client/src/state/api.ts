@@ -10,7 +10,7 @@ export const api = createApi({
   //   `reducerPath` property is set to the string value "main". This is the unique key that identifies the service in the Redux store.
   reducerPath: "main",
   //   Tag types are optional and used for caching and invalidation. By providing an empty array, no tag types are defined
-  tagTypes: ["Kpis","Products"],
+  tagTypes: ["Kpis", "Products"],
   //    a simple API endpoint named getKpis that makes a GET request to "kpi/kpis/" URL and provides the "Kpis" tag for caching and invalidation purposes
   endpoints: (build) => ({
     // API call for KPI data
