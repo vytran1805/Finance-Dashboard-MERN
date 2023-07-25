@@ -1,9 +1,9 @@
 import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
-import { useGetKpisQuery, useGetProductsQuery } from "@/state/api";
+import { useGetKpisQuery } from "@/state/api";
 import { Box, Typography, useTheme } from "@mui/material";
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import {
   CartesianGrid,
   Cell,
@@ -170,9 +170,9 @@ const MiddleThreeBoxes = (props: Props) => {
       {/* Pie charts start here */}
       <DashboardBox gridArea="e">
         <BoxHeader title="Expenses Ratio" sideText="+4%" />
-        <FlexBetween width="100%" height="80%" padding='0'>
-          <ResponsiveContainer>
-            <PieChart width={110} height={100} margin={{ top: 50, left: 10 }}>
+        <FlexBetween width="100%" height="73%" gap="50px" paddingRight="10px">
+          <ResponsiveContainer width={250}>
+            <PieChart margin={{ top: 55, left: 10 }}>
               <Pie
                 stroke="none"
                 endAngle={180}
