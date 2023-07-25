@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GetKpisResponse, GetProductsResponse } from "./types";
+import { GetKpisResponse, GetProductsResponse, GetTransactionsResponse } from "./types";
 
 /**boilerplate code
  * createApi() allows to make endpoints that we can use to call and grab data from our backend
@@ -27,10 +27,17 @@ export const api = createApi({
       // By setting the providesTags property to ["Products"], this endpoint provides the "Products" tag,  it can trigger cache invalidation or cache updates when data related to this endpoint changes
       providesTags: ["Products"],
     }),
+    // API call for Transaction data
+    getTransactions: build.query<Array<GetTransactionsResponse>, void>({
+      //'query()' makes a GET request to the "product/products/" URL
+      query: () => "transaction/transactions/",
+      // By setting the providesTags property to ["Products"], this endpoint provides the "Products" tag,  it can trigger cache invalidation or cache updates when data related to this endpoint changes
+      providesTags: ["Transactions"],
+    }),
   }),
 });
 
-export const { useGetKpisQuery, useGetProductsQuery } = api;
+export const { useGetKpisQuery, useGetProductsQuery, useGetTransactionsQuery } = api;
 
 /* 
     EXPLANATION:

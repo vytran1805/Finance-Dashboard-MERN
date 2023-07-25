@@ -65,3 +65,18 @@ export interface GetProductsResponse {
   createAt: string;
   updatedAt: string;
 }
+
+/**
+ * this interface represents the Product obj that we want the response to look like
+ * Note: used in api.ts
+ */
+export interface GetTransactionsResponse {
+  id: string;
+  __v: number;
+  _id: string;
+  amount: number;
+  buyer: number;
+  productIds: Array<string>;
+  createAt: string;
+  updatedAt: string;
+}
