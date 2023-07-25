@@ -1,7 +1,7 @@
 import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
-import { useGetKpisQuery } from "@/state/api";
+import { useGetKpisQuery, useGetProductsQuery } from "@/state/api";
 import { Box, Typography, useTheme } from "@mui/material";
 import { useMemo } from "react";
 import {
@@ -13,16 +13,22 @@ import {
   Pie,
   PieChart,
   ResponsiveContainer,
+  Scatter,
+  ScatterChart,
   Tooltip,
   XAxis,
   YAxis,
+  ZAxis,
 } from "recharts";
 
 type Props = {};
 
 const MiddleThreeBoxes = (props: Props) => {
-  // Get Kpi data: used for the first chart
+  // Get Kpi data: used for line and pie chart
   const { data: operationalVsNonOpData } = useGetKpisQuery();
+
+  // Get product data: used for Scatter chart
+  const { data: productData } = useGetProductsQuery();
 
   const { palette } = useTheme();
   const pieColorPalette = [palette.primary[400], palette.primary[300]];
@@ -76,6 +82,21 @@ const MiddleThreeBoxes = (props: Props) => {
     );
   }, [operationalVsNonOpData]);
 
+  const priceVsExpeses = useMemo(() => {
+    return (
+      productData &&
+      productData.map(({ _id,price, expense }) => {
+        return {
+          id: _id,
+          price: price,
+          expense: expense,
+        };
+      })
+    );
+  }, [productData]);
+  /**
+   * This renders the label for pie chart
+   */
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx,
@@ -167,7 +188,7 @@ const MiddleThreeBoxes = (props: Props) => {
         </ResponsiveContainer>
       </DashboardBox>
 
-      {/* Pie charts start here */}
+      {/* Pie chart */}
       <DashboardBox gridArea="e">
         <BoxHeader title="Expenses Ratio" sideText="+4%" />
         <FlexBetween width="100%" height="73%" gap="50px" paddingRight="10px">
@@ -198,7 +219,49 @@ const MiddleThreeBoxes = (props: Props) => {
           </Box>
         </FlexBetween>
       </DashboardBox>
-      <DashboardBox gridArea="f"></DashboardBox>
+      {/* Product prices vs Expenses scatter chart */}
+      <DashboardBox gridArea="f">
+        <BoxHeader title="Product Prices vs Expenses" sideText="+4%" />
+        <ResponsiveContainer width="100%" height='100%'>
+          <ScatterChart
+            margin={{
+              top: 20,
+              right: 35,
+              bottom: 40,
+              left: -5,
+            }}
+          >
+            <CartesianGrid stroke={palette.grey[800]} />
+            <XAxis
+              type="number"
+              dataKey="price"
+              name="Price"
+              axisLine={false}
+              tickLine={false}
+              style={{ fontSize: "10px" }}
+              tickFormatter={(v) => `CA$${v}`} //add prefix to the value
+            />
+            <YAxis
+              type="number"
+              dataKey="expense"
+              name="Expense"
+              axisLine={false}
+              tickLine={false}
+              style={{ fontSize: "10px" }}
+              tickFormatter={(v) => `CA$${v}`} //add prefix to the value
+            />
+             {/* this attribute determines the size of the dots */}
+            <ZAxis type="number" range={[25]}/> 
+            <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+            <Scatter
+              name="Product Expense Ratio"
+              data={priceVsExpeses}
+              fill={palette.tertiary[500]}
+              shape="triangle"
+            />
+          </ScatterChart>
+        </ResponsiveContainer>
+      </DashboardBox>
     </>
   );
 };
