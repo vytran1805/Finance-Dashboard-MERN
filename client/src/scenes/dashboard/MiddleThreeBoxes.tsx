@@ -2,7 +2,7 @@ import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
 import { useGetKpisQuery, useGetProductsQuery } from "@/state/api";
-import { Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import {
   CartesianGrid,
@@ -29,17 +29,17 @@ const MiddleThreeBoxes = (props: Props) => {
 
   const operationalVsNonOpExpenses = useMemo(() => {
     return (
-      operationalVsNonOpData &&
-      (operationalVsNonOpData[0].monthlyData.map(
-        ({ month, operationalExpenses, nonOperationalExpenses }) => {
-          return {
-            Name:
-              month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3),
-            "Operational Expenses": operationalExpenses,
-            "NonOperational Expenses": nonOperationalExpenses,
-          };
-        }
-      ))||[{name: "Pro"}]
+      (operationalVsNonOpData &&
+        operationalVsNonOpData[0].monthlyData.map(
+          ({ month, operationalExpenses, nonOperationalExpenses }) => {
+            return {
+              Name:
+                month.substring(0, 3)[0].toUpperCase() + month.substring(1, 3),
+              "Operational Expenses": operationalExpenses,
+              "NonOperational Expenses": nonOperationalExpenses,
+            };
+          }
+        )) || [{ name: "Pro" }]
     );
   }, [operationalVsNonOpData]);
 
@@ -57,7 +57,7 @@ const MiddleThreeBoxes = (props: Props) => {
         {
           // Calculate the total operational expenses for all months
           // in the monthlyData array using the reduce method
-          name: "Total Operational Expenses",
+          name: "Operational",
           value: operationalVsNonOpData[0].monthlyData.reduce(
             (acc, array) => acc + array.operationalExpenses,
             0
@@ -66,7 +66,7 @@ const MiddleThreeBoxes = (props: Props) => {
         {
           // Calculate the total non-operational expenses for all months
           // in the monthlyData array using the reduce method
-          name: "Total Non Operational Expenses",
+          name: "Non Operational",
           value: operationalVsNonOpData[0].monthlyData.reduce(
             (acc, array) => acc + array.nonOperationalExpenses,
             0
@@ -75,16 +75,6 @@ const MiddleThreeBoxes = (props: Props) => {
       ]
     );
   }, [operationalVsNonOpData]);
-
-  // const profitMargin = useMemo(()=>{
-  //   return(
-  //     operationalVsNonOpData&&[
-  //       {
-  //         name:
-  //       }
-  //     ]
-  //   )
-  // })
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -180,14 +170,9 @@ const MiddleThreeBoxes = (props: Props) => {
       {/* Pie charts start here */}
       <DashboardBox gridArea="e">
         <BoxHeader title="Expenses Ratio" sideText="+4%" />
-        <FlexBetween width="100%" height="100%">
+        <FlexBetween width="100%" height="80%" padding='0'>
           <ResponsiveContainer>
-            <PieChart
-              width={110}
-              height={100}
-
-              // margin={{ top: 0, right: -10, left: 10, bottom: 55 }}
-            >
+            <PieChart width={110} height={100} margin={{ top: 50, left: 10 }}>
               <Pie
                 stroke="none"
                 endAngle={180}
@@ -202,6 +187,15 @@ const MiddleThreeBoxes = (props: Props) => {
               </Pie>
             </PieChart>
           </ResponsiveContainer>
+          <Box flexBasis="80%" textAlign="center">
+            <Typography variant="h5">Total Expenses</Typography>
+            <Typography m="0.3rem 0" variant="h3" color={palette.primary[400]}>
+              {operationalVsNonOpData?.[0].totalExpenses}
+            </Typography>
+            <Typography variant="h6">
+              The pie chart visualizes expense distribution across categories
+            </Typography>
+          </Box>
         </FlexBetween>
       </DashboardBox>
       <DashboardBox gridArea="f"></DashboardBox>
