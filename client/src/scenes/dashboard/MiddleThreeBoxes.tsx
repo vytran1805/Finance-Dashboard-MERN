@@ -2,7 +2,7 @@ import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
 import FlexBetween from "@/components/FlexBetween";
 import { useGetKpisQuery, useGetProductsQuery } from "@/state/api";
-import { useTheme } from "@mui/material";
+import { Typography, useTheme } from "@mui/material";
 import React, { useMemo } from "react";
 import {
   CartesianGrid,
@@ -30,7 +30,7 @@ const MiddleThreeBoxes = (props: Props) => {
   const operationalVsNonOpExpenses = useMemo(() => {
     return (
       operationalVsNonOpData &&
-      operationalVsNonOpData[0].monthlyData.map(
+      (operationalVsNonOpData[0].monthlyData.map(
         ({ month, operationalExpenses, nonOperationalExpenses }) => {
           return {
             Name:
@@ -39,7 +39,7 @@ const MiddleThreeBoxes = (props: Props) => {
             "NonOperational Expenses": nonOperationalExpenses,
           };
         }
-      )
+      ))||[{name: "Pro"}]
     );
   }, [operationalVsNonOpData]);
 
@@ -97,19 +97,35 @@ const MiddleThreeBoxes = (props: Props) => {
     index,
   }: any) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    const x = cx + 0.75 * radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + 4 * radius * Math.sin(-midAngle * RADIAN);
     return (
-      <text
-        x={x}
-        y={y}
-        fill="#1f2026"
-        textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline="central"
-        fontSize="11px"
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
+      <>
+        {/* Display name of the field */}
+        <text
+          x={x}
+          y={y}
+          fill={pieColorPalette[index]}
+          textAnchor={x > cx ? "start" : "end"}
+          dominantBaseline="central"
+          fontSize="11px"
+        >
+          {expensesRatio?.[index].name}
+        </text>
+
+        {/* Display percentage of the expenses */}
+        <text
+          x={x}
+          y={y - 3 * radius * Math.sin(-midAngle * RADIAN)}
+          fill={palette.grey[800]}
+          textAnchor={x > cx ? "start" : "end"}
+          dominantBaseline="central"
+          fontSize="10px"
+          fontWeight="bold"
+        >
+          {`${(percent * 100).toFixed(0)}%`}
+        </text>
+      </>
     );
   };
   return (
@@ -163,6 +179,7 @@ const MiddleThreeBoxes = (props: Props) => {
 
       {/* Pie charts start here */}
       <DashboardBox gridArea="e">
+        <BoxHeader title="Expenses Ratio" sideText="+4%" />
         <FlexBetween width="100%" height="100%">
           <ResponsiveContainer>
             <PieChart
@@ -172,37 +189,11 @@ const MiddleThreeBoxes = (props: Props) => {
               // margin={{ top: 0, right: -10, left: 10, bottom: 55 }}
             >
               <Pie
-                stroke="white"
-                data={expensesRatio}
-                // cx="50%"
-                // cy="50%"
-                labelLine={false}
-                label={renderCustomizedLabel}
-                outerRadius={40}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {expensesRatio?.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={pieColorPalette[index]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-          <ResponsiveContainer>
-            <PieChart
-              width={110}
-              height={100}
-              // margin={{ top: 0, right: -10, left: 10, bottom: 55 }}
-            >
-              <Pie
                 stroke="none"
+                endAngle={180}
                 data={expensesRatio}
-                // cx="50%"
-                // cy="50%"
-                labelLine={false}
                 label={renderCustomizedLabel}
-                outerRadius={38}
-                fill="#8884d8"
+                outerRadius={45}
                 dataKey="value"
               >
                 {expensesRatio?.map((entry, index) => (
