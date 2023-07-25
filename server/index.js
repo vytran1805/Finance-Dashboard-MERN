@@ -7,9 +7,11 @@ import helmet from "helmet"; //for API endpoint security
 import morgan from "morgan"; //handle console log ⇒ anytime we hit an endpoint, it’s going to console log information
 import kpiRoutes from "./routes/kpi.js";
 import productRoutes from "./routes/product.js";
+import transactionRoutes from "./routes/transaction.js";
 import Product from "./models/Product.js";
 import KPI from "./models/KPI.js"; //import the KPI model
-import { kpis, products } from "./data/data.js"; //import the data
+import Transaction from "./models/Transaction.js";
+import { kpis, products, transactions } from "./data/data.js"; //import the data
 /* CONFIGURATION */
 dotenv.config();
 const app = express();
@@ -24,6 +26,7 @@ app.use(cors());
 /* ROUTES */
 app.use("/kpi", kpiRoutes);
 app.use("/product", productRoutes);
+app.use("/transaction", transactionRoutes);
 /*MONGOOSE SETUP*/
 const PORT = process.env.PORT || 9000;
 mongoose
@@ -45,6 +48,7 @@ mongoose
     // await mongoose.connection.db.dropDatabase(); //drop the database if existed
     // KPI.insertMany(kpis); //insert kpis data into the KPI model
     // Product.insertMany(products); //insert products data into the product model
+    // Transaction.insertMany(transactions); //insert transactions data into the transaction model
   })
   // catch any errors occurs
   .catch((error) => console.log(`${error} did not connect`));
