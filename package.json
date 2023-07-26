@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@types/regression": "^2.0.2"
+  },
+  "dependencies": {
+    "regression": "^2.0.1"
   }
 }
