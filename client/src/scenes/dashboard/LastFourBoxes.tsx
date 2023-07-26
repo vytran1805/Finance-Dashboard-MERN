@@ -162,10 +162,10 @@ const LastFourBoxes = (props: Props) => {
       </DashboardBox>
       <DashboardBox gridArea="i">
         <BoxHeader title="Expense Breakdown By Category" sideText="+4%" />
-        <FlexBetween mt='-0.1rem' gap="0.5rem" p="0 1rem" textAlign="center">
+        <FlexBetween mt="-0.1rem" gap="0.5rem" p="0 1rem" textAlign="center">
           {expensesByCategory?.map((data, i) => (
             <Box key={`${data[0].name}-${i}`}>
-              <PieChart width={110} height={100} >
+              <PieChart width={110} height={100}>
                 <Pie
                   stroke="none"
                   data={data}
@@ -180,12 +180,44 @@ const LastFourBoxes = (props: Props) => {
                 </Pie>
               </PieChart>
               {/* name of each chart */}
-              <Typography mt='-0.9rem' variant="h5">{data[0].name}</Typography>
+              <Typography mt="-0.9rem" variant="h5">
+                {data[0].name}
+              </Typography>
             </Box>
           ))}
         </FlexBetween>
       </DashboardBox>
-      <DashboardBox gridArea="j"></DashboardBox>
+      <DashboardBox gridArea="j">
+        <BoxHeader
+          title="Overall Summary and Explanation Data"
+          sideText="+15%"
+        />
+        <Box
+          height="15px"
+          margin="1rem 1rem 0.4rem 1rem"
+          bgcolor={palette.primary[600]}
+          borderRadius="1rem"
+        >
+          <Box
+            height="15px"
+            bgcolor={palette.primary[300]}
+            borderRadius="1rem"
+            width="40%"
+          ></Box>
+        </Box>
+        <Typography
+          margin="0 1rem"
+          textAlign="justify"
+          variant="h6"
+          color={palette.grey[500]}
+        >
+          In 2022, XYZ Restaurant thrived with a 15% revenue increase, totaling
+          $1.2 million. Cost management strategies maintained a healthy gross
+          profit margin of 70% as operating expenses reduced by 10%. The
+          restaurant achieved positive net profit and EBITDA, indicating a
+          successful financial year.
+        </Typography>
+      </DashboardBox>
     </>
   );
 };
