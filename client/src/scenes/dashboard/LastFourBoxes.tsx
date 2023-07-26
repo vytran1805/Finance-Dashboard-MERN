@@ -1,20 +1,23 @@
 import BoxHeader from "@/components/BoxHeader";
 import DashboardBox from "@/components/DashboardBox";
+import FlexBetween from "@/components/FlexBetween";
 import {
   useGetKpisQuery,
   useGetProductsQuery,
   useGetTransactionsQuery,
 } from "@/state/api";
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 // @ts-ignore
-import React from "react";
+import React, { useMemo } from "react";
+import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 
 type Props = {};
 
 // @ts-ignore
 const LastFourBoxes = (props: Props) => {
   const { palette } = useTheme();
+  const pieColorPalette = [palette.primary[200], palette.primary[400]];
   // Get kpis data
   const { data: kpidata } = useGetKpisQuery();
   // Get products data
@@ -66,6 +69,29 @@ const LastFourBoxes = (props: Props) => {
         (params.value as Array<String>).length,
     },
   ];
+
+  const expensesByCategory = useMemo(() => {
+    if (kpidata) {
+      const totalExpenses = kpidata[0].totalExpenses;
+      return Object.entries(kpidata[0].expensesByCategory).map(
+        //get both the key and value from obj 'kpidata[0].expensesByCategory'
+        ([key, value]) => {
+          return [
+            {
+              name: key,
+              value: value,
+            },
+            {
+              name: `${key} of Total`,
+              value: totalExpenses - value,
+            },
+          ];
+        }
+      );
+    }
+  }, [kpidata]);
+  console.log(expensesByCategory);
+
   return (
     <>
       <DashboardBox gridArea="g">
@@ -104,7 +130,7 @@ const LastFourBoxes = (props: Props) => {
       <DashboardBox gridArea="h">
         <BoxHeader
           title="Recent Orders"
-          sideText={`${transactionData?.length} products`}
+          sideText={`${transactionData?.length} orders`}
         />
         <Box
           mt="0.5rem"
@@ -134,7 +160,31 @@ const LastFourBoxes = (props: Props) => {
           />
         </Box>
       </DashboardBox>
-      <DashboardBox gridArea="i"></DashboardBox>
+      <DashboardBox gridArea="i">
+        <BoxHeader title="Expense Breakdown By Category" sideText="+4%" />
+        <FlexBetween mt='-0.1rem' gap="0.5rem" p="0 1rem" textAlign="center">
+          {expensesByCategory?.map((data, i) => (
+            <Box key={`${data[0].name}-${i}`}>
+              <PieChart width={110} height={100} >
+                <Pie
+                  stroke="none"
+                  data={data}
+                  innerRadius={13}
+                  outerRadius={31}
+                  paddingAngle={2}
+                  dataKey="value"
+                >
+                  {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={pieColorPalette[index]} />
+                  ))}
+                </Pie>
+              </PieChart>
+              {/* name of each chart */}
+              <Typography mt='-0.9rem' variant="h5">{data[0].name}</Typography>
+            </Box>
+          ))}
+        </FlexBetween>
+      </DashboardBox>
       <DashboardBox gridArea="j"></DashboardBox>
     </>
   );
