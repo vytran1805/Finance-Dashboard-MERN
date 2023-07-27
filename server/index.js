@@ -28,7 +28,7 @@ app.use("/kpi", kpiRoutes);
 app.use("/product", productRoutes);
 app.use("/transaction", transactionRoutes);
 /*MONGOOSE SETUP*/
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 8080;
 mongoose
   // connect to MONGO_URL in .env file
   .connect(process.env.MONGO_URL, {
