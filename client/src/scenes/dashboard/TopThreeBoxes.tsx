@@ -71,6 +71,7 @@ const TopThreeBoxes = () => {
         />
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
+          style={{ fontSize: "10px" }}
             width={500}
             height={400}
             data={revenueExpenses}
@@ -85,8 +86,8 @@ const TopThreeBoxes = () => {
             <defs>
               <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
                 <stop
-                  offset="5%"
-                  stopColor={palette.primary[400]}
+                  offset="10%"
+                  stopColor={palette.primary[600]}
                   stopOpacity={0.9}
                 />
                 <stop
@@ -97,13 +98,13 @@ const TopThreeBoxes = () => {
               </linearGradient>
               <linearGradient id="colorExpenses" x1="0" y1="0" x2="0" y2="1">
                 <stop
-                  offset="5%"
-                  stopColor={palette.primary[400]}
+                  offset="30%"
+                  stopColor={palette.tertiary[900]}
                   stopOpacity={0.9}
                 />
                 <stop
                   offset="95%"
-                  stopColor={palette.primary[300]}
+                  stopColor={palette.tertiary[700]}
                   stopOpacity={0}
                 />
               </linearGradient>
@@ -132,13 +133,14 @@ const TopThreeBoxes = () => {
               domain={[8000, 23000]} //set a range of YAxis
             />
             <Tooltip />
+            <Legend height={20} />
             <Area
               type="monotone"
               dataKey="Expenses"
               dot={true}
-              stroke={palette.primary.light} //line
+              stroke={palette.tertiary[500]} //line
               fillOpacity={1}
-              fill="url(#colorRevenue)" //this will navigate to linearGradient above
+              fill="url(#colorExpenses)" //this will navigate to linearGradient above
             />
             <Area
               type="monotone"
