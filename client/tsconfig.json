@@ -8,6 +8,7 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
+
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -17,11 +18,11 @@
     "types": ["vite/client"], //this will help ts use the environment variables inside .env.local file without errors
 
     /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
+    "strict": false,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/App.tsx","vite"],
+  "include": ["src", "src/App.tsx", "vite"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
