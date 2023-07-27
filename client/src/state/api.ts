@@ -1,5 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { GetKpisResponse, GetProductsResponse, GetTransactionsResponse } from "./types";
+import {
+  GetKpisResponse,
+  GetProductsResponse,
+  GetTransactionsResponse,
+} from "./types";
 
 /**boilerplate code
  * createApi() allows to make endpoints that we can use to call and grab data from our backend
@@ -10,7 +14,7 @@ export const api = createApi({
   //   `reducerPath` property is set to the string value "main". This is the unique key that identifies the service in the Redux store.
   reducerPath: "main",
   //   Tag types are optional and used for caching and invalidation. By providing an empty array, no tag types are defined
-  tagTypes: ["Kpis", "Products"],
+  tagTypes: ["Kpis", "Products", "Transactions"],
   //    a simple API endpoint named getKpis that makes a GET request to "kpi/kpis/" URL and provides the "Kpis" tag for caching and invalidation purposes
   endpoints: (build) => ({
     // API call for KPI data
@@ -37,7 +41,8 @@ export const api = createApi({
   }),
 });
 
-export const { useGetKpisQuery, useGetProductsQuery, useGetTransactionsQuery } = api;
+export const { useGetKpisQuery, useGetProductsQuery, useGetTransactionsQuery } =
+  api;
 
 /* 
     EXPLANATION:
