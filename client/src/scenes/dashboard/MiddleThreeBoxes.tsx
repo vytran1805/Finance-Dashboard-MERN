@@ -21,9 +21,7 @@ import {
   ZAxis,
 } from "recharts";
 
-type Props = {};
-
-const MiddleThreeBoxes = (props: Props) => {
+const MiddleThreeBoxes = () => {
   // Get Kpi data: used for line and pie chart
   const { data: operationalVsNonOpData } = useGetKpisQuery();
 
@@ -85,7 +83,7 @@ const MiddleThreeBoxes = (props: Props) => {
   const priceVsExpeses = useMemo(() => {
     return (
       productData &&
-      productData.map(({ _id,price, expense }) => {
+      productData.map(({ _id, price, expense }) => {
         return {
           id: _id,
           price: price,
@@ -202,7 +200,7 @@ const MiddleThreeBoxes = (props: Props) => {
                 outerRadius={45}
                 dataKey="value"
               >
-                {expensesRatio?.map((entry, index) => (
+                {expensesRatio?.map((_entry, index) => (
                   <Cell key={`cell-${index}`} fill={pieColorPalette[index]} />
                 ))}
               </Pie>
@@ -222,7 +220,7 @@ const MiddleThreeBoxes = (props: Props) => {
       {/* Product prices vs Expenses scatter chart */}
       <DashboardBox gridArea="f">
         <BoxHeader title="Product Prices vs Expenses" sideText="+4%" />
-        <ResponsiveContainer width="100%" height='100%'>
+        <ResponsiveContainer width="100%" height="100%">
           <ScatterChart
             margin={{
               top: 20,
@@ -250,8 +248,8 @@ const MiddleThreeBoxes = (props: Props) => {
               style={{ fontSize: "10px" }}
               tickFormatter={(v) => `CA$${v}`} //add prefix to the value
             />
-             {/* this attribute determines the size of the dots */}
-            <ZAxis type="number" range={[25]}/> 
+            {/* this attribute determines the size of the dots */}
+            <ZAxis type="number" range={[25]} />
             <Tooltip cursor={{ strokeDasharray: "3 3" }} />
             <Scatter
               name="Product Expense Ratio"

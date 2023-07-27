@@ -4,9 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import AllInclusiveIcon from "@mui/icons-material/AllInclusive";
 
-type Props = {};
-
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const { palette } = useTheme(); //useTheme() grabs the theme settings in theme.ts
   const [selected, setSelected] = useState("dashboard"); //determine which page we are currently on so we can highlight the text
   return (

@@ -10,12 +10,9 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid, GridCellParams } from "@mui/x-data-grid";
 // @ts-ignore
 import React, { useMemo } from "react";
-import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
 
-type Props = {};
-
-// @ts-ignore
-const LastFourBoxes = (props: Props) => {
+const LastFourBoxes = () => {
   const { palette } = useTheme();
   const pieColorPalette = [palette.primary[200], palette.primary[400]];
   // Get kpis data
@@ -174,7 +171,7 @@ const LastFourBoxes = (props: Props) => {
                   paddingAngle={2}
                   dataKey="value"
                 >
-                  {data.map((entry, index) => (
+                  {data.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={pieColorPalette[index]} />
                   ))}
                 </Pie>

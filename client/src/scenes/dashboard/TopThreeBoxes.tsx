@@ -18,9 +18,7 @@ import {
   YAxis,
 } from "recharts";
 
-type Props = {};
-
-const TopThreeBoxes = (props: Props) => {
+const TopThreeBoxes = () => {
   // use palette from useThem() @mui/material
   const { palette } = useTheme();
   // use api hook from api.ts to get data from the database
